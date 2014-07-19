@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+        <dc:identifier opf:scheme="calibre" id="calibre_id">30</dc:identifier>
+        <dc:identifier opf:scheme="uuid" id="uuid_id">c438f2f9-634b-44f6-85e3-96847d4ab448</dc:identifier>
+        <dc:title>Prince of Thorns</dc:title>
+        <dc:creator opf:file-as="Lawrence, Mark" opf:role="aut">Lawrence, Mark</dc:creator>
+        <dc:contributor opf:file-as="calibre" opf:role="bkp">calibre (0.8.9) [http://calibre-ebook.com]</dc:contributor>
+        <dc:date>2011-08-01T16:00:00+00:00</dc:date>
+        <dc:publisher>Ace</dc:publisher>
+        <dc:language>en</dc:language>
+        <meta content="{&quot;Lawrence, Mark&quot;: &quot;&quot;}" name="calibre:author_link_map"/>
+        <meta content="2011-08-03T00:50:32+00:00" name="calibre:timestamp"/>
+        <meta content="Prince of Thorns" name="calibre:title_sort"/>
+    </metadata>
+    <guide>
+        <reference href="cover.jpg" type="cover" title="Cover"/>
+    </guide>
+</package>

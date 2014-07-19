@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+        <dc:identifier opf:scheme="calibre" id="calibre_id">1046</dc:identifier>
+        <dc:identifier opf:scheme="uuid" id="uuid_id">84a4a81b-fdec-4a3c-9e5f-8abd2db8c683</dc:identifier>
+        <dc:title>Meta</dc:title>
+        <dc:creator opf:file-as="Reynolds, Tom" opf:role="aut">Reynolds, Tom</dc:creator>
+        <dc:contributor opf:file-as="calibre" opf:role="bkp">calibre (1.5.0) [http://calibre-ebook.com]</dc:contributor>
+        <dc:date>2013-10-26T18:30:00+00:00</dc:date>
+        <dc:description>It’s been ten years since Connor Connolly lost his parents in ‘The Battle’; a fight between The Governor and Jones, two of the world’s strongest metas. Before ‘The Battle’ the world had been full of metas, super-powered humans whose amazing abilities came from mysterious wristbands. Since that day one has never been seen again.</dc:description>
+        <dc:publisher>Leonard &amp; Calyer</dc:publisher>
+        <dc:identifier opf:scheme="MOBI-ASIN">B00GCICW6O</dc:identifier>
+        <dc:language>eng</dc:language>
+        <meta content="{&quot;Reynolds, Tom&quot;: &quot;&quot;}" name="calibre:author_link_map"/>
+        <meta content="2013-11-24T02:04:04.348000+00:00" name="calibre:timestamp"/>
+        <meta content="Meta" name="calibre:title_sort"/>
+    </metadata>
+    <guide>
+        <reference href="Meta - Reynolds, Tom.jpg" title="Cover" type="cover"/>
+    </guide>
+</package>
