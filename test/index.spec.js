@@ -14,9 +14,10 @@ describe('opf', function () {
         });
         it('Should correctly load opf file', function (done) {
             fs.readFile( __dirname+'/files/meta.opf', function(err, data) {
+
                 opf.load(data)
                     .then(function(opf_data){
-                        opf_data.toJSON().should.be.ok;
+                        opf_data.should.be.ok;
                     })
                     .then(done,done)
             });
