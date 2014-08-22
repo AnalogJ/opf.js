@@ -105,3 +105,102 @@ describe('after loading prince_of_thorns.opf', function () {
             'calibre:title_sort': 'Prince of Thorns' });
     })
 });
+
+
+
+describe('creating invalid opf using toXML()', function () {
+    var opf_data;
+    beforeEach(function (done) {
+        opf.create()
+            .then(function(_opf_data){
+                opf_data = _opf_data;
+            })
+            .then(done,done)
+    });
+
+    /*
+     <?xml version="1.0" encoding="UTF-8" ?>
+     <package xmlns="http://www.idpf.org/2007/opf" xmlns:dc="http://purl.org/dc/elements/1.1/" unique-identifier="db-id" version="3.0">
+
+     <metadata>
+     <dc:title id="t1">Title</dc:title>
+     <dc:identifier id="db-id">isbn</dc:identifier>
+     <meta property="dcterms:modified">2014-03-27T09:14:09Z</meta>
+     <dc:language>en</dc:language>
+     </metadata>
+     </package>
+    * */
+
+    it('should raise an error if missing title', function () {
+        should(function(){opf_data.toXML()}).throw();
+    });
+
+    it('should raise an error if missing uuid', function(){
+        opf_data.title = "Test title"
+        should(function(){opf_data.toXML()}).throw();
+    })
+    it('should raise an error if missing language', function(){
+        opf_data.title = "Test title"
+        opf_data.identifiers['UUID_ID'] = {'scheme':"","value":"12345","id":"uuid_id"};
+        opf_data.languages = []
+        should(function(){opf_data.toXML()}).throw();
+    })
+});
+
+describe('creating a opf with minimal data using toXML()', function () {
+    var opf_data;
+    beforeEach(function (done) {
+        opf.create()
+            .then(function(_opf_data){
+                opf_data = _opf_data;
+                opf_data.title = "Test title"
+                opf_data.identifiers['UUID_ID'] = {'scheme':"","value":"12345","id":"uuid_id"};
+                opf_data.date ="2014-08-22T00:41:48.908Z"
+            })
+            .then(done.bind(null,null),done.bind(null,null))
+    });
+
+    /*
+     <?xml version="1.0" encoding="UTF-8" ?>
+     <package xmlns="http://www.idpf.org/2007/opf" xmlns:dc="http://purl.org/dc/elements/1.1/" unique-identifier="db-id" version="3.0">
+
+     <metadata>
+     <dc:title id="t1">Title</dc:title>
+     <dc:identifier id="db-id">isbn</dc:identifier>
+     <meta property="dcterms:modified">2014-03-27T09:14:09Z</meta>
+     <dc:language>en</dc:language>
+     </metadata>
+     </package>
+     * */
+
+    it('should have a title', function(){
+        opf_data.title.should.eql("Test title");
+    })
+
+    it('should have a uuid', function(){
+        opf_data.identifiers['UUID_ID'].should.eql({'scheme':"","value":"12345","id":"uuid_id"});
+    })
+
+    it('should generate valid opf file', function () {
+        opf_data.toXML().should.eql("<?xml version=\"1.0\"?><package xmlns=\"http://www.idpf.org/2007/opf\" unique-identifier=\"uuid_id\"><metadata xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:opf=\"http://www.idpf.org/2007/opf\"><dc:identifier opf:scheme=\"\" id=\"uuid_id\">12345</dc:identifier><dc:title>Test title</dc:title><dc:language>en</dc:language><dc:date>2014-08-22T00:41:48.908Z</dc:date></metadata></package>");
+    });
+});
+
+
+describe('creating a opf file using toXML()', function () {
+    var opf_data;
+    beforeEach(function (done) {
+        opf.create()
+            .then(function(_opf_data){
+                opf_data = _opf_data;
+                opf_data.title = "Test title"
+                opf_data.identifiers['UUID_ID'] = {'scheme':"","value":"12345","id":"uuid_id"};
+                opf_data.date ="2014-08-22T00:41:48.908Z"
+
+            })
+            .then(done.bind(null,null),done.bind(null,null))
+    });
+    it('should generate valid opf file', function () {
+        opf_data.toXML().should.eql("<?xml version=\"1.0\"?><package xmlns=\"http://www.idpf.org/2007/opf\" unique-identifier=\"uuid_id\"><metadata xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:opf=\"http://www.idpf.org/2007/opf\"><dc:identifier opf:scheme=\"\" id=\"uuid_id\">12345</dc:identifier><dc:title>Test title</dc:title><dc:language>en</dc:language><dc:date>2014-08-22T00:41:48.908Z</dc:date></metadata></package>");
+    });
+});
