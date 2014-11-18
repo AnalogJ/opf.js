@@ -226,7 +226,7 @@ describe('creating a reordered opf file and generate sha1', function () {
         opf.create()
             .then(function(_opf_data){
                 opf_data = _opf_data;
-                opf_data.identifiers['UUID_ID'] = {"id":"uuid_id",'scheme':"","value":"12345"};
+                opf_data.uuid = "12345";
                 opf_data.identifiers['ISBN'] = {"id":"ISBN",'scheme':"","value":"1234567890"};
                 opf_data.date ="2014-08-22T00:41:48.908Z"
                 opf_data.title = "Test title"
