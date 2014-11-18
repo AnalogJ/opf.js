@@ -204,3 +204,43 @@ describe('creating a opf file using toXML()', function () {
         opf_data.toXML().should.eql("<?xml version=\"1.0\"?><package xmlns=\"http://www.idpf.org/2007/opf\" unique-identifier=\"uuid_id\"><metadata xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:opf=\"http://www.idpf.org/2007/opf\"><dc:identifier opf:scheme=\"\" id=\"uuid_id\">12345</dc:identifier><dc:title>Test title</dc:title><dc:language>en</dc:language><dc:date>2014-08-22T00:41:48.908Z</dc:date></metadata></package>");
     });
 });
+
+
+describe('creating a opf file and generate sha1', function () {
+    var opf_data;
+    beforeEach(function (done) {
+        opf.create()
+            .then(function(_opf_data){
+                opf_data = _opf_data;
+                opf_data.title = "Test title"
+                opf_data.identifiers['ISBN'] = {"id":"ISBN",'scheme':"","value":"1234567890"};
+                opf_data.identifiers['UUID_ID'] = {'scheme':"","value":"12345","id":"uuid_id"};
+                opf_data.date ="2014-08-22T00:41:48.908Z"
+
+            })
+            .then(done.bind(null,null),done.bind(null,null))
+    });
+    it('should generate valid opf file', function () {
+        opf_data.sha1().should.eql("da9ebcfb1385f0244c0dba8b33cbf1851f11e8f3");
+    });
+});
+
+describe('creating a reordered opf file and generate sha1', function () {
+    var opf_data;
+    beforeEach(function (done) {
+        opf.create()
+            .then(function(_opf_data){
+                opf_data = _opf_data;
+                opf_data.identifiers['UUID_ID'] = {"id":"uuid_id",'scheme':"","value":"12345"};
+                opf_data.identifiers['ISBN'] = {"id":"ISBN",'scheme':"","value":"1234567890"};
+                opf_data.date ="2014-08-22T00:41:48.908Z"
+                opf_data.title = "Test title"
+
+
+            })
+            .then(done.bind(null,null),done.bind(null,null))
+    });
+    it('should generate valid opf file', function () {
+        opf_data.sha1().should.eql("da9ebcfb1385f0244c0dba8b33cbf1851f11e8f3");
+    });
+});
