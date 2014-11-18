@@ -20,7 +20,6 @@ describe('after loading meta.opf', function () {
     })
     it('should read identifiers', function(){
         opf_data.identifiers.should.eql({ 'CALIBRE': { scheme: 'calibre', value: '1046', id: 'calibre_id' },
-            'UUID':{ scheme: 'uuid', value: '84a4a81b-fdec-4a3c-9e5f-8abd2db8c683', id: 'uuid_id' },
             'MOBI-ASIN': { scheme: 'MOBI-ASIN', value: 'B00GCICW6O', id: undefined } })
     })
     //Wrapper.prototype.read_creator = function(file_as){}; //if file_as is empty, return all;
@@ -80,11 +79,7 @@ describe('after loading prince_of_thorns.opf', function () {
         opf_data.uuid.should.eql("c438f2f9-634b-44f6-85e3-96847d4ab448")
     })
     it('should read identifiers', function(){
-        opf_data.identifiers.should.eql({ CALIBRE: { scheme: 'calibre', value: '30', id: 'calibre_id' },
-            UUID:
-            { scheme: 'uuid',
-                value: 'c438f2f9-634b-44f6-85e3-96847d4ab448',
-                id: 'uuid_id' } })
+        opf_data.identifiers.should.eql({ CALIBRE: { scheme: 'calibre', value: '30', id: 'calibre_id' }})
     })
     //Wrapper.prototype.read_creator = function(file_as){}; //if file_as is empty, return all;
     it('should read creators',function(){
@@ -153,8 +148,8 @@ describe('creating a opf with minimal data using toXML()', function () {
         opf.create()
             .then(function(_opf_data){
                 opf_data = _opf_data;
-                opf_data.title = "Test title"
-                opf_data.identifiers['UUID_ID'] = {'scheme':"","value":"12345","id":"uuid_id"};
+                opf_data.title = "Test title";
+                opf_data.uuid = "12345";
                 opf_data.date ="2014-08-22T00:41:48.908Z"
             })
             .then(done.bind(null,null),done.bind(null,null))
@@ -178,11 +173,11 @@ describe('creating a opf with minimal data using toXML()', function () {
     })
 
     it('should have a uuid', function(){
-        opf_data.identifiers['UUID_ID'].should.eql({'scheme':"","value":"12345","id":"uuid_id"});
+        opf_data.uuid.should.eql("12345");
     })
 
     it('should generate valid opf file', function () {
-        opf_data.toXML().should.eql("<?xml version=\"1.0\"?><package xmlns=\"http://www.idpf.org/2007/opf\" unique-identifier=\"uuid_id\"><metadata xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:opf=\"http://www.idpf.org/2007/opf\"><dc:identifier opf:scheme=\"\" id=\"uuid_id\">12345</dc:identifier><dc:title>Test title</dc:title><dc:language>en</dc:language><dc:date>2014-08-22T00:41:48.908Z</dc:date></metadata></package>");
+        opf_data.toXML().should.eql("<?xml version=\"1.0\"?><package xmlns=\"http://www.idpf.org/2007/opf\" unique-identifier=\"uuid_id\"><metadata xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:opf=\"http://www.idpf.org/2007/opf\"><dc:identifier opf:scheme=\"uuid\" id=\"uuid_id\">12345</dc:identifier><dc:title>Test title</dc:title><dc:language>en</dc:language><dc:date>2014-08-22T00:41:48.908Z</dc:date></metadata></package>");
     });
 });
 
@@ -194,14 +189,14 @@ describe('creating a opf file using toXML()', function () {
             .then(function(_opf_data){
                 opf_data = _opf_data;
                 opf_data.title = "Test title"
-                opf_data.identifiers['UUID_ID'] = {'scheme':"","value":"12345","id":"uuid_id"};
+                opf_data.uuid ="12345";
                 opf_data.date ="2014-08-22T00:41:48.908Z"
 
             })
             .then(done.bind(null,null),done.bind(null,null))
     });
     it('should generate valid opf file', function () {
-        opf_data.toXML().should.eql("<?xml version=\"1.0\"?><package xmlns=\"http://www.idpf.org/2007/opf\" unique-identifier=\"uuid_id\"><metadata xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:opf=\"http://www.idpf.org/2007/opf\"><dc:identifier opf:scheme=\"\" id=\"uuid_id\">12345</dc:identifier><dc:title>Test title</dc:title><dc:language>en</dc:language><dc:date>2014-08-22T00:41:48.908Z</dc:date></metadata></package>");
+        opf_data.toXML().should.eql("<?xml version=\"1.0\"?><package xmlns=\"http://www.idpf.org/2007/opf\" unique-identifier=\"uuid_id\"><metadata xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:opf=\"http://www.idpf.org/2007/opf\"><dc:identifier opf:scheme=\"uuid\" id=\"uuid_id\">12345</dc:identifier><dc:title>Test title</dc:title><dc:language>en</dc:language><dc:date>2014-08-22T00:41:48.908Z</dc:date></metadata></package>");
     });
 });
 

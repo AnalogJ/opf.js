@@ -22,11 +22,16 @@ function parse_opf_file(wrapper, json_content){
 
     //Identifiers (includes the UUID)
     self.identifiers = _.reduce(json_content.package.metadata[0][self._dcns +":identifier"] || [],function (prev, identifier){
-        var data = {};
-        data['scheme'] = identifier['$'][self._opfns+':scheme'];
-        data['value'] = identifier['_'];
-        data['id'] = identifier['$']['id'];
-        prev[data['scheme'].toUpperCase()] = data;
+        if (identifier['$']['id'] == self._unique_identifier_id){
+            //do nothing, identifier UUID should not be stored here, its set above in uuid field.
+        }
+        else {
+            var data = {};
+            data['scheme'] = identifier['$'][self._opfns + ':scheme'];
+            data['value'] = identifier['_'];
+            data['id'] = identifier['$']['id'];
+            prev[data['scheme'].toUpperCase()] = data;
+        }
         return prev;
     },{})
 
@@ -186,9 +191,16 @@ Wrapper.prototype.toXML = function(options){
 
     var metadata = package.ele('metadata', metadata_attributes);
     //<dc:identifier opf:scheme="calibre" id="calibre_id">30</dc:identifier>
-    if(!self.identifiers[self._unique_identifier_id.toUpperCase()]){
+    if(!self.uuid){
         console.log("IDENTIFIER REQ");
         throw new Error('UUID Identifier is required');
+    }
+    else{
+        var data = {};
+        data['scheme'] = 'uuid';
+        data['value'] = self.uuid;
+        data['id'] = self._unique_identifier_id;
+        self.identifiers[self._unique_identifier_id] = data;
     }
     _.forEach(self.identifiers, function(identifier, key){
 
@@ -198,6 +210,7 @@ Wrapper.prototype.toXML = function(options){
         }
         metadata.ele('dc:identifier',attrs, identifier.value)
     })
+
 
     //<dc:title>Prince of Thorns</dc:title>
     if(!self.title){
