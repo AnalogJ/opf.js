@@ -3,6 +3,7 @@ var xml2js = require('xml2js')
 var parseString = xml2js.parseString;
 
 var opf_wrapper = require('./opf_wrapper.js');
+exports.elements = require('./elements.js');
 exports.load = function(xml_content){
     if(!xml_content){
         return q.reject("invalid or empty opf content")

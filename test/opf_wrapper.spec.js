@@ -209,14 +209,14 @@ describe('creating a opf file and generate sha1', function () {
                 opf_data = _opf_data;
                 opf_data.title = "Test title"
                 opf_data.identifiers['ISBN'] = {"id":"ISBN",'scheme':"","value":"1234567890"};
-                opf_data.identifiers['UUID_ID'] = {'scheme':"","value":"12345","id":"uuid_id"};
+                opf_data.uuid = "12345";
                 opf_data.date ="2014-08-22T00:41:48.908Z"
 
             })
             .then(done,done)
     });
     it('should generate valid opf file', function () {
-        opf_data.sha1().should.eql("da9ebcfb1385f0244c0dba8b33cbf1851f11e8f3");
+        opf_data.sha1().should.eql("bf8fb004a81c32971520e9c77ba5ce5782c24dff");
     });
 });
 
@@ -236,6 +236,6 @@ describe('creating a reordered opf file and generate sha1', function () {
             .then(done,done)
     });
     it('should generate valid opf file', function () {
-        opf_data.sha1().should.eql("da9ebcfb1385f0244c0dba8b33cbf1851f11e8f3");
+        opf_data.sha1().should.eql("bf8fb004a81c32971520e9c77ba5ce5782c24dff");
     });
 });

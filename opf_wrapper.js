@@ -1,6 +1,6 @@
 var _ = require('lodash');
 var xml2js = require('xml2js');
-
+var elements = require('./elements.js');
 function parse_opf_file(wrapper, json_content){
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Parse OPF file.
@@ -26,11 +26,11 @@ function parse_opf_file(wrapper, json_content){
             //do nothing, identifier UUID should not be stored here, its set above in uuid field.
         }
         else {
-            var data = {};
-            data['scheme'] = identifier['$'][self._opfns + ':scheme'];
-            data['value'] = identifier['_'];
-            data['id'] = identifier['$']['id'];
-            prev[data['scheme'].toUpperCase()] = data;
+            prev[identifier['$'][self._opfns + ':scheme'].toUpperCase()] = new elements.identifier(
+                identifier['$'][self._opfns + ':scheme'],
+                identifier['_'],
+                identifier['$']['id']
+            );
         }
         return prev;
     },{})
@@ -43,11 +43,11 @@ function parse_opf_file(wrapper, json_content){
 
     //Creator
     self.creators = _.map(json_content.package.metadata[0][self._dcns +":creator"] || [],function (found_creator){
-        var data = {};
-        data['file-as'] = found_creator['$'][self._opfns+':file-as'];
-        data['value'] = found_creator['_'];
-        data['role'] = found_creator['$'][self._opfns+':role'];
-        return data;
+        return new elements.creator(
+            found_creator['$'][self._opfns+':file-as'],
+            found_creator['_'],
+            found_creator['$'][self._opfns+':role']
+        );
     })
 
     //Contributor
